@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 圣诞树</title>
+    <style>
+        body {
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .tree {
+            position: relative;
+            transform-style: preserve-3d;
+            animation: rotate 20s linear infinite;
+        }
+        .layer {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 60px solid green;
+            transform-origin: bottom center;
+        }
+        .layer1 {
+            top: -60px;
+            border-bottom-color: #228B22;
+        }
+        .layer2 {
+            top: -120px;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 80px solid #32CD32;
+        }
+        .layer3 {
+            top: -200px;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid #7CFC00;
+        }
+        .trunk {
+            position: absolute;
+            width: 20px;
+            height: 40px;
+            background: #8B4513;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .star {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: yellow;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            top: -240px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: blink 1s infinite alternate;
+        }
+        @keyframes rotate {
+            from { transform: rotateY(0); }
+            to { transform: rotateY(360deg); }
+        }
+        @keyframes blink {
+            from { opacity: 0.5; }
+            to { opacity: 1; }
+        }
+        .snow {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-100px); }
+            to { transform: translateY(100vh); }
+        }
+        .create-snow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="tree">
+        <div class="star"></div>
+        <div class="layer layer3"></div>
+        <div class="layer layer2"></div>
+        <div class="layer layer1"></div>
+        <div class="trunk"></div>
+    </div>
+    <div class="create-snow"></div>
+    <script>
+        // 生成雪花
+        function createSnow() {
+            const container = document.querySelector('.create-snow');
+            const count = 50;
+            for (let i = 0; i < count; i++) {
+                const snow = document.createElement('div');
+                snow.className = 'snow';
+                snow.style.left = Math.random() * 100 + 'vw';
+                snow.style.animationDuration = Math.random() * 5 + 5 + 's';
+                snow.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(snow);
+            }
+        }
+        createSnow();
+    </script>
+</body>
+</html>
